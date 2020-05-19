@@ -28,7 +28,7 @@
   },
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "run-p client server",
+    "start": "run-p server client",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
