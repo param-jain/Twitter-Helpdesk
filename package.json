@@ -28,13 +28,13 @@
   },
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nodemon ./src/server/server --ignore start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon ./src/server/server --ignore start",
     "client": "react-scripts start",
-    "heroku-postbuild": "node ./src/server/server --ignore start"
+    "heroku-postbuild": "yarn run build"
   },
   "eslintConfig": {
     "extends": "react-app"
