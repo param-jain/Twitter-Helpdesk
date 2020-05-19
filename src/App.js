@@ -2,9 +2,10 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TwitterLogin from "react-twitter-login";
-import HelpDesk from './HelpDesk';
+import HelpDesk from './components/HelpDesk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Button } from 'react-bootstrap'
+
 class App extends React.Component {
 
   constructor(props) {
@@ -46,7 +47,7 @@ class App extends React.Component {
       return (
         <div>
           <Navbar bg="light" variant="light">
-            <Navbar.Brand href="/">Twitter HelpDesk</Navbar.Brand>
+            <Navbar.Brand href="/">Twitter HelpDesk - Conversations: Matching "amazonIN"</Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
               <Button variant="outline-primary" onClick={() => this.onLogoutClicked()}>Logout</Button>
             </Navbar.Collapse>

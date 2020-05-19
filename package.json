@@ -6,19 +6,34 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "body-parser": "^1.19.0",
     "bootstrap": "^4.5.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.3",
+    "materialize-css": "^1.0.0-rc.2",
+    "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
+    "react-materialize": "^3.9.0",
     "react-router": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-twitter-login": "^1.1.2"
+    "react-transition-group": "^4.4.1",
+    "react-twitter-login": "^1.1.2",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "twitter": "^1.7.1"
   },
+  "proxy": "http://localhost:3001",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "nodemon ./src/server/server --ignore start",
+    "heroku-postbuild": "nodemon ./src/server/server --ignore start"
   },
   "eslintConfig": {
     "extends": "react-app"
