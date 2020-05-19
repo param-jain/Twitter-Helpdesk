@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 app.get("/", function(req, res) {
-    res.send("App works!!");
+  res.redirect('http://localhost:3000/');
   });
 
 server.listen(port, () => {
