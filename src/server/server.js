@@ -12,13 +12,14 @@ const io = socketio(server);
 
 require('./routes/tweets.js')(app, io);
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '../../public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 app.get("*", function(req, res) {
-    res.send("App works!!");
+    //res.send("App works!!");
+    res.sendFile(path.join(__dirname, '../../public', 'index.html'));
   });
 
 server.listen(port, () => {
