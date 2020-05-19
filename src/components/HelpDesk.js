@@ -1,5 +1,4 @@
 import React from 'react';
-import { TransitionGroup } from 'react-transition-group';
 import socketIOClient from "socket.io-client";
 import CardComponent from './CardComponent';
 import ReplyBubbleComponent from './ReplyBubbleComponent';
@@ -94,14 +93,11 @@ renderRightCard = () => {
     if (this.state.replies.length > -1) {
       var replies = this.state.replies;
       var replyCards = 
-        <TransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+        <div>
           { replies.reverse().map((x, i) =>
             <ReplyBubbleComponent key={i} data={x} />
           )}
-        </TransitionGroup>;
+        </div>;
     }  
 
     return (
@@ -169,18 +165,14 @@ renderRightCard = () => {
 }
   render() {
     let items = this.state.items;
-
-    let itemsCards = 
-      <TransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
-          {items.map((x, i) =>
-            <div onClick={() => {this.loadTweetData(x)}}>
-              <CardComponent key={i} data={x} />
-              </div>
-          )}
-      </TransitionGroup>;
+    let itemsCards =      
+      <div>
+        { items.map((x, i) =>
+          <div key={i} onClick={() => {this.loadTweetData(x)}}>
+            <CardComponent key={i} data={x} />
+          </div>
+        )}
+      </div>
 
     let loading = 
         <Card style={{ width: '21rem', padding: 10 }}>
