@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon ./src/server/server --ignore start",
-    "heroku-postbuild": "nodemon ./src/server/server --ignore start"
+    "heroku-postbuild": "node ./src/server/server --ignore start"
   },
   "eslintConfig": {
     "extends": "react-app"
