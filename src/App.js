@@ -4,31 +4,49 @@ import './App.css';
 import TwitterLogin from "react-twitter-login";
 import HelpDesk from './components/HelpDesk';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Button } from 'react-bootstrap'
+import { Navbar, Button, Spinner, Image } from 'react-bootstrap'
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      userData: null
+      userData: null,
+      loading: false
     }
   }
 
+  componentDidMount() {
+    console.log('Appjs CDM');
+    console.log(localStorage.getItem('userData'));
+  }
+
   authHandler = (err, data) => {
-    console.log(err, data);
-    this.setState({userData: data});
+    this.setState({userData: data, loading: false});
     localStorage.setItem('userData', data)
     window.location.reload(true);
   };
 
   onLogoutClicked = () => {
-    localStorage.setItem('userData', '');
+    console.log(localStorage.getItem('userData'))
+    localStorage.setItem('userData', 'undefined');
     window.location.reload(true);
   }
 
+  renderLoader = () => {
+    if (this.state.loading) {
+      return (
+        <Spinner animation="border"/>
+      )
+    } else {
+      return (
+        <Image style={{height: '2rem', width: '4rem', marginTop: -6}} src="https://image.flaticon.com/icons/svg/220/220233.svg" roundedCircle />
+      )
+    }
+  }
+
   render() {
-    if (!localStorage.getItem('userData')) {
+    if (!localStorage.getItem('userData') || localStorage.getItem('userData') == 'undefined') {
       return (
         <div className="App">
           <header className="App-header">
@@ -39,7 +57,11 @@ class App extends React.Component {
                 consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
                 consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
                 callbackUrl={'http://localhost:3000'}
-              />
+              >
+                <Button onClick={() => this.setState({loading: true})} size='lg' variant='light' style={{marginTop: 5, width:'15rem', height: '3rem', borderRadius: '1.5rem', alignItems: 'center', justifyContent: 'center'}}>
+                  {this.renderLoader()}
+                </Button>
+              </TwitterLogin>
           </header>
         </div>
       );
