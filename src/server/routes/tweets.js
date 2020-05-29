@@ -14,15 +14,28 @@ module.exports = (app, io) => {
     });
     //let socketConnection;
     let twitterStream;
+    let gSocket;
+    let focusedReplies;
 
     app.locals.searchTerm = 'amazonIN';
     app.locals.showRetweets = false;
+    app.locals.focusedTweet = ''
 
-    const sendMessage = (msg, socket) => {
-        if (msg.text.includes('RT')) {
+    const sendMessage = (lmsg, socket) => {
+        if (lmsg.text.includes('RT')) {
             return;
         }
-        console.log(msg);
+        console.log(lmsg);
+        var feed = focusedReplies;
+        var comments = [];
+        for (var index = 0; index < feed.statuses.length; index++) {
+            if (feed.statuses[index].in_reply_to_status_id_str === app.locals.focusedTweet.tweetStrId) {
+                comments.push(feed.statuses[index]);
+            }
+        }
+        let msg = {
+            tweets: lmsg, replies: comments
+        }
         socket.emit("tweets", msg);
     }
 
@@ -62,6 +75,7 @@ module.exports = (app, io) => {
         console.log('Resuming for Search Term: ' + app.locals.searchTerm);
         twitter.stream('statuses/filter', { track: app.locals.searchTerm }, (stream) => {
             stream.on('data', (tweet) => {
+                //focusedReplies = await getAllReplies(app.locals.focusedTweet.tweetStrId, app.locals.focusedTweet.screenName) 
                 sendMessage(tweet, socket);
             });
 
@@ -109,7 +123,23 @@ module.exports = (app, io) => {
         }
     });
 
+    app.post('/set-search-term', (req, res) => {
+        let term = req.body.term;
+        console.log(term);
+        app.locals.searchTerm = term;
+        twitterStream.destroy();
+        stream(gSocket);
+    });
+
+    app.post('/set-focused-tweet', (req, res) => {
+        let tweetStrId = req.body.tweetStrId;
+        let screenName = req.body.screenName;
+        let term = {tweetStrId, screenName }
+        app.locals.focusedTweet = term;
+    });
+
     io.on("connection", socket => {
+        gSocket = socket;
         stream(socket);
         socket.on("connection", () => console.log("Client connected"));
         socket.on("disconnect", () => console.log("Client disconnected"));

@@ -17,15 +17,38 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Appjs CDM');
     console.log(localStorage.getItem('userData'));
+    console.log(localStorage.getItem('screenName'));
+    this.sendScreenName(localStorage.getItem('screenName'));
   }
 
   authHandler = (err, data) => {
     this.setState({userData: data, loading: false});
-    localStorage.setItem('userData', data)
-    window.location.reload(true);
+    localStorage.setItem('userData', data);
+    localStorage.setItem('screenName', data.screen_name);
   };
+
+  sendScreenName = async(term) => {
+    let body = {
+      term: term
+    }
+    await fetch("/set-search-term", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'http://localhost:3001',
+        'Access-Control-Allow-Credentials': true
+      },
+      body: JSON.stringify(body)
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      window.location.reload(true);
+    })
+    .catch((err) => {
+      console.log('Screen Name Tweet Error: ' + err);
+    })
+  }
 
   onLogoutClicked = () => {
     console.log(localStorage.getItem('userData'))
@@ -69,8 +92,11 @@ class App extends React.Component {
       return (
         <div>
           <Navbar bg="light" variant="light">
-            <Navbar.Brand href="/">Twitter HelpDesk - Conversations: Matching "amazonIN"</Navbar.Brand>
+            <div style={{justifyContent: 'center', alignItems: 'center'}}>
+              <Navbar.Brand style={{fontSize: 28, fontWeight: 'bold'}} href="/">Twitter HelpDesk - Conversations</Navbar.Brand>
+            </div>
             <Navbar.Collapse className="justify-content-end">
+            <Navbar.Brand style={{fontSize: 14, fontWeight: '500'}} href="/"> Matching "@{localStorage.getItem('screenName')}"</Navbar.Brand>
               <Button variant="outline-primary" onClick={() => this.onLogoutClicked()}>Logout</Button>
             </Navbar.Collapse>
           </Navbar>

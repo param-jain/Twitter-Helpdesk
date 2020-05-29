@@ -17,8 +17,8 @@ class CardComponent extends React.Component {
                             <img src={data.user.profile_image_url} alt={data.user.name} className="circle responsive-img" />
                         </Col>
                         <Col md={8}>
-                            <h6 style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="black-text">{this.truncate(data.user.name, 26)}</h6>
-                            <span className="black-text">{this.truncate(data.text, 53)}</span>
+                            <div style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: 'bold', fontSize: 14}} className="black-text">{this.truncate(data.user.name, 26)}</div>
+                            <div style={{fontSize: 12}} className="black-text">{this.truncate(data.text, 53)}</div>
                         </Col>
                     </Row>
             </Card>

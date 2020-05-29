@@ -19,8 +19,8 @@ componentDidMount() {
   socket.on('connect', () => {
     console.log("Socket Connected");
     socket.on("tweets", data => {
-      console.info(data);
-      let newList = [data].concat(this.state.items.slice(0, 100));
+      console.log(data);
+      let newList = [data.tweets].concat(this.state.items.slice(0, 100));
       this.setState({ items: newList });
     });
   });
@@ -83,7 +83,7 @@ loadTweetData = async(tweetDetail) => {
     this.setState({loading: false, replies: res.response});
   })
   .catch((err) => {
-    console.log('Load Tweet Replies  Error: ' + err);
+    console.log('Load Tweet Replies Error: ' + err);
     this.setState({loading: false});
   })
 }
@@ -103,12 +103,13 @@ renderRightCard = () => {
     return (
       <Card style={{width: '55rem', height: '33rem', marginLeft: -18}}>
         <Row style={{height: '34rem', marginTop: 20}}>
-            <Col md xl lg={7}>
+            <Col md xl lg={8}>
               <Row style={{borderBottom: '1px solid', marginLeft: 2, alignItems: 'center', paddingBottom: 10, paddingLeft: 30, paddingTop: -20, borderColor: '#eee'}}>
-                <img src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
-                <h6 style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800', marginLeft: 10}} className="black-text">{this.state.focusedTweet.user.name}</h6>
+                <img style={{height: '5%', width: '5%'}} src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
+                <div style={{fontSize: 16, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800', marginLeft: 10}} className="black-text">{this.state.focusedTweet.user.name}</div>
+                <div style={{width: 5, height: 5, borderRadius: 50, marginLeft: 5, backgroundColor: 'grey'}} />
               </Row>
-              <Row style={{height: '21rem'}}>
+              <Row style={{height: '22.5rem'}}>
                   {
                     this.state.loading ?
                     <div style={{justifyContent: 'center', alignItems: 'center', marginLeft: '18rem', marginTop: '8rem'}}>
@@ -120,7 +121,7 @@ renderRightCard = () => {
                       </Scrollbars>
                   }
               </Row>
-              <Row style={{borderTop: '1px solid', borderColor: '#eee', marginLeft: 2, padding: 5 }}>
+              <Row style={{borderTop: '1px solid', borderColor: '#eee', marginLeft: 2, padding: 0}}>
                 <Col>
                   <Form onSubmit={(e) => this.handleSubmit(e)} style={{marginLeft: 30, border: '0px solid', borderRadius: 5, borderColor: '#eee', height: '4rem', width: '90%'}}>
                     <Form.Group controlId="formBasicChat">
@@ -128,30 +129,29 @@ renderRightCard = () => {
                     </Form.Group>
                   </Form>
                 </Col>
-                
               </Row>
             </Col>
-            <Col style={{borderLeft:'1px solid', borderColor: '#eee'}} md lg={4}>
+            <Col style={{borderLeft:'1px solid', borderColor: '#eee', marginBottom: '2rem'}} md lg={3}>
               <Row style={{ alignItems: 'center', justifyContent: 'center'}}>
                 <img src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center'}}> 
-                <h6 style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800'}} className="black-text">{this.state.focusedTweet.user.name}</h6>
+                <div style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800'}} className="black-text">{this.state.focusedTweet.user.name}</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 
-                <h6 style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-danger">@{this.state.focusedTweet.user.screen_name}</h6>
+                <div style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-danger">@{this.state.focusedTweet.user.screen_name}</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 
-                <a href={this.state.focusedTweet.user.url} style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-primary">{this.state.focusedTweet.user.url}</a>
+                <a href={this.state.focusedTweet.user.url} style={{fontSize: 10, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-primary">{this.state.focusedTweet.user.url}</a>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30}}> 
-                <h6 href={this.state.focusedTweet.user.url} style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Followers: {this.state.focusedTweet.user.followers_count}</h6>
+                <div href={this.state.focusedTweet.user.url} style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Followers: {this.state.focusedTweet.user.followers_count}</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 
-                <h6 href={this.state.focusedTweet.user.url} style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Friends: {this.state.focusedTweet.user.friends_count}</h6>
+                <div href={this.state.focusedTweet.user.url} style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Friends: {this.state.focusedTweet.user.friends_count}</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 
-                <h6 href={this.state.focusedTweet.user.url} style={{textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Since: {new Date(this.state.focusedTweet.user.created_at).toDateString()}</h6>
+                <div href={this.state.focusedTweet.user.url} style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Since: {new Date(this.state.focusedTweet.user.created_at).toDateString()}</div>
               </Row>
             </Col>
         </Row>
@@ -184,7 +184,7 @@ renderRightCard = () => {
 
     return (
       <div>
-        <div style={{marginTop: 10}} className="row">
+        <div style={{marginTop: 20}} className="row">
             <div className="col s12 m4 l4">
                 <Scrollbars>
                     <div className="col s12 offset-s6 m4 offset-m2 l4 offset-l2">
