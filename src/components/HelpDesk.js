@@ -4,7 +4,7 @@ import CardComponent from './CardComponent';
 import ReplyBubbleComponent from './ReplyBubbleComponent';
 import 'materialize-css/dist/css/materialize.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Card, Row, Col, Form, Spinner } from 'react-bootstrap'
+import { Card, Row, Col, Form, Spinner, Image } from 'react-bootstrap'
 import { Scrollbars } from 'react-custom-scrollbars';
 
 class HelpDesk extends React.Component {
@@ -19,6 +19,7 @@ componentDidMount() {
   socket.on('connect', () => {
     console.log("Socket Connected");
     socket.on("tweets", data => {
+      console.log('Tweets')
       console.log(data);
       let newList = [data.tweets].concat(this.state.items.slice(0, 100));
       this.setState({ items: newList });
@@ -101,37 +102,43 @@ renderRightCard = () => {
     }  
 
     return (
-      <Card style={{width: '55rem', height: '33rem', marginLeft: -18}}>
+      <Card style={{width: '55rem', height: '30rem', marginLeft: -18}}>
         <Row style={{height: '34rem', marginTop: 20}}>
             <Col md xl lg={8}>
               <Row style={{borderBottom: '1px solid', marginLeft: 2, alignItems: 'center', paddingBottom: 10, paddingLeft: 30, paddingTop: -20, borderColor: '#eee'}}>
                 <img style={{height: '5%', width: '5%'}} src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
                 <div style={{fontSize: 16, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800', marginLeft: 10}} className="black-text">{this.state.focusedTweet.user.name}</div>
                 <div style={{width: 5, height: 5, borderRadius: 50, marginLeft: 5, backgroundColor: 'grey'}} />
+                <div style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '500', color: '#666', marginLeft: 30}}>Room: 101</div>
+                <div style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '500', color: '#666', marginLeft: 30}}>Oct 1 - Oct 31</div>
+                <div style={{height: '1.5rem', borderRadius: 30, borderColor: '#eee', marginLeft: 30, marginTop: -5, border: '1px solid light', backgroundColor: '#eef', paddingLeft: 10, paddingRight: 10, justifyContent: 'center', alignItems: 'center'}}>Create a Task</div>
               </Row>
-              <Row style={{height: '22.5rem'}}>
+              <Row style={{height: '19rem'}}>
                   {
                     this.state.loading ?
                     <div style={{justifyContent: 'center', alignItems: 'center', marginLeft: '18rem', marginTop: '8rem'}}>
                       <Spinner variant="primary" size="lg" animation="grow" />
                     </div> :
                       <Scrollbars>
-                        <ReplyBubbleComponent key={-1} data={this.state.focusedTweet} />
                         { replyCards }
+                        <ReplyBubbleComponent key={-1} data={this.state.focusedTweet} />
                       </Scrollbars>
                   }
               </Row>
-              <Row style={{borderTop: '1px solid', borderColor: '#eee', marginLeft: 2, padding: 0}}>
-                <Col>
-                  <Form onSubmit={(e) => this.handleSubmit(e)} style={{marginLeft: 30, border: '0px solid', borderRadius: 5, borderColor: '#eee', height: '4rem', width: '90%'}}>
-                    <Form.Group controlId="formBasicChat">
-                      <Form.Control style={{border: '0px', alignItems: 'center'}} placeholder="Press Enter to Reply" value={this.state.replyTweet} onChange={(event) => this.setState({replyTweet: event.target.value})}/>
-                    </Form.Group>
-                  </Form>
+              <Row style={{borderTop: '0px solid', borderColor: '#eee', marginLeft: 2, padding: 0}}>
+                <Col style={{marginTop: 0}}>
+                  <div className="row">
+                    <img style={{height: 20, width: 20, marginLeft: 30, marginRight: -25}} src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
+                    <Form onSubmit={(e) => this.handleSubmit(e)} style={{marginLeft: 30, border: '0px solid', borderRadius: 5, borderColor: '#eee', height: '4rem', width: '85%'}}>
+                      <Form.Group controlId="formBasicChat">
+                        <Form.Control style={{border: '1px solid', borderRadius: 10, borderColor:'#eee', paddingLeft: 10, alignItems: 'center'}} placeholder="Press Enter to Reply ..." value={this.state.replyTweet} onChange={(event) => this.setState({replyTweet: event.target.value})}/>
+                      </Form.Group>
+                    </Form>
+                  </div>
                 </Col>
               </Row>
             </Col>
-            <Col style={{borderLeft:'1px solid', borderColor: '#eee', marginBottom: '2rem'}} md lg={3}>
+            <Col style={{borderLeft:'1px solid', borderColor: '#eee', marginBottom: '2rem', padding: 5}} md lg={3}>
               <Row style={{ alignItems: 'center', justifyContent: 'center'}}>
                 <img src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
               </Row>
@@ -143,6 +150,10 @@ renderRightCard = () => {
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 
                 <a href={this.state.focusedTweet.user.url} style={{fontSize: 10, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-primary">{this.state.focusedTweet.user.url}</a>
+              </Row>
+              <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -10}}>
+                <div style={{height: '1.5rem', borderRadius: 30, borderColor: '#eee', marginLeft: 0, marginTop: 0, border: '1px solid light', backgroundColor: '#eee', paddingTop: 3, paddingLeft: 10, paddingRight: 10, justifyContent: 'center', alignItems: 'center', fontSize: 12}}>📞 Call</div>
+                <div style={{height: '1.5rem', borderRadius: 30, borderColor: '#eee', marginLeft: 10, marginTop: 0, border: '1px solid light', backgroundColor: '#eee', paddingTop: 3, paddingLeft: 10, paddingRight: 10, justifyContent: 'center', alignItems: 'center', fontSize: 12}}>📧 Email</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30}}> 
                 <div href={this.state.focusedTweet.user.url} style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '600'}} className="text-secondary">Followers: {this.state.focusedTweet.user.followers_count}</div>
@@ -159,7 +170,7 @@ renderRightCard = () => {
     );
   } else {
     return(
-      <Card style={{width: '55rem', height: '33rem', marginLeft: -18}} />
+      <Card style={{width: '55rem', height: '30rem', marginLeft: -18}} />
     )
   }
 }
@@ -184,7 +195,17 @@ renderRightCard = () => {
 
     return (
       <div>
-        <div style={{marginTop: 20}} className="row">
+        <div style={{ marginTop: 20, marginLeft: 90, alignItems: 'center', justifyContent: 'space-between'}} className="row">
+          <div style={{}} className="row">
+            <div style={{fontWeight: 'bold', fontSize: 24}}>Conversations</div>
+            <Form.Control style={{border: '1px solid', width: '12rem', height: '1.5rem', marginTop: 5, marginLeft: 10, borderRadius: 30, borderColor:'#eee', paddingLeft: 10, paddingTop: -20, alignItems: 'center'}} placeholder="🔍  Quick Search" />
+            <div style={{height: '1.5rem', borderRadius: 30, borderColor: '#eee', marginLeft: 10, border: '1px solid light', backgroundColor: '#eee', paddingLeft: 10, paddingRight: 10, marginTop: 5, justifyContent: 'center', alignItems: 'center'}}>
+              <Image style={{height: '1rem', width: '1rem'}} src={require('../components/filter.png')} rounded />
+              Filter
+            </div>
+          </div>
+        </div>
+        <div style={{marginTop: -35}} className="row">
             <div className="col s12 m4 l4">
                 <Scrollbars>
                     <div className="col s12 offset-s6 m4 offset-m2 l4 offset-l2">

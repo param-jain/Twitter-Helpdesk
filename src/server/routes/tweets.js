@@ -17,7 +17,7 @@ module.exports = (app, io) => {
     let gSocket;
     let focusedReplies;
 
-    app.locals.searchTerm = 'amazonIN';
+    app.locals.searchTerm = 'the';
     app.locals.showRetweets = false;
     app.locals.focusedTweet = ''
 
@@ -28,14 +28,15 @@ module.exports = (app, io) => {
         console.log(lmsg);
         var feed = focusedReplies;
         var comments = [];
-        for (var index = 0; index < feed.statuses.length; index++) {
+        /* for (var index = 0; index < feed.statuses.length; index++) {
             if (feed.statuses[index].in_reply_to_status_id_str === app.locals.focusedTweet.tweetStrId) {
                 comments.push(feed.statuses[index]);
             }
-        }
+        } */
         let msg = {
             tweets: lmsg, replies: comments
         }
+        console.log(msg)
         socket.emit("tweets", msg);
     }
 

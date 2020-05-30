@@ -13,7 +13,7 @@ class CardComponent extends React.Component {
         return (
             <Card border="#eee" style={{ width: '21rem', paddingTop: 10, paddingRight: -10, paddingLeft: 10 }}>
                     <Row>
-                        <Col md={3}>
+                        <Col md={2}>
                             <img src={data.user.profile_image_url} alt={data.user.name} className="circle responsive-img" />
                         </Col>
                         <Col md={8}>

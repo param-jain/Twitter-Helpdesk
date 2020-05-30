@@ -19,7 +19,7 @@ class App extends React.Component {
   componentDidMount() {
     console.log(localStorage.getItem('userData'));
     console.log(localStorage.getItem('screenName'));
-    this.sendScreenName(localStorage.getItem('screenName'));
+    //this.sendScreenName(localStorage.getItem('screenName'));
   }
 
   authHandler = (err, data) => {
@@ -69,7 +69,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (!localStorage.getItem('userData') || localStorage.getItem('userData') == 'undefined') {
+    if (!localStorage.getItem('userData') || localStorage.getItem('userData') === 'undefined') {
       return (
         <div className="App">
           <header className="App-header">
@@ -79,7 +79,7 @@ class App extends React.Component {
                 authCallback={this.authHandler}
                 consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
                 consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
-                callbackUrl={'http://localhost:3000'}
+                callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
               >
                 <Button onClick={() => this.setState({loading: true})} size='lg' variant='light' style={{marginTop: 5, width:'15rem', height: '3rem', borderRadius: '1.5rem', alignItems: 'center', justifyContent: 'center'}}>
                   {this.renderLoader()}
@@ -93,7 +93,7 @@ class App extends React.Component {
         <div>
           <Navbar bg="light" variant="light">
             <div style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Navbar.Brand style={{fontSize: 28, fontWeight: 'bold'}} href="/">Twitter HelpDesk - Conversations</Navbar.Brand>
+              <Navbar.Brand style={{fontSize: 28, fontWeight: 'bold'}} href="/">Twitter HelpDesk</Navbar.Brand>
             </div>
             <Navbar.Collapse className="justify-content-end">
             <Navbar.Brand style={{fontSize: 14, fontWeight: '500'}} href="/"> Matching "@{localStorage.getItem('screenName')}"</Navbar.Brand>
