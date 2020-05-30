@@ -23,9 +23,11 @@ class App extends React.Component {
   }
 
   authHandler = (err, data) => {
-    this.setState({userData: data, loading: false});
+    console.log('AUTH HANFLER')
+    console.log(data);
+    /* this.setState({userData: data, loading: false});
     localStorage.setItem('userData', data);
-    localStorage.setItem('screenName', data.screen_name);
+    localStorage.setItem('screenName', data.screen_name); */
   };
 
   sendScreenName = async(term) => {
