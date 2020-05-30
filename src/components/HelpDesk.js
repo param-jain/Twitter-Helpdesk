@@ -142,7 +142,7 @@ renderRightCard = () => {
               <Row style={{ alignItems: 'center', justifyContent: 'center'}}>
                 <img src={this.state.focusedTweet.user.profile_image_url} alt={this.state.focusedTweet.user.name} className="circle responsive-img" />
               </Row>
-              <Row style={{ alignItems: 'center', justifyContent: 'center'}}> 
+              <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -10}}> 
                 <div style={{fontSize: 12, textOverflow: 'ellipsis', overflow: 'hidden', fontWeight: '800'}} className="black-text">{this.state.focusedTweet.user.name}</div>
               </Row>
               <Row style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20}}> 

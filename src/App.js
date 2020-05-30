@@ -80,6 +80,7 @@ class App extends React.Component {
                 consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
                 consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
                 callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
+                //callbackUrl={'http://localhost:3000'}
               >
                 <Button onClick={() => this.setState({loading: true})} size='lg' variant='light' style={{marginTop: 5, width:'15rem', height: '3rem', borderRadius: '1.5rem', alignItems: 'center', justifyContent: 'center'}}>
                   {this.renderLoader()}
