@@ -19,15 +19,18 @@ class App extends React.Component {
   componentDidMount() {
     console.log(localStorage.getItem('userData'));
     console.log(localStorage.getItem('screenName'));
-    //this.sendScreenName(localStorage.getItem('screenName'));
+    this.sendScreenName(localStorage.getItem('screenName'));
   }
 
   authHandler = (err, data) => {
     console.log('AUTH HANFLER')
     console.log(data);
-    /* this.setState({userData: data, loading: false});
-    localStorage.setItem('userData', data);
-    localStorage.setItem('screenName', data.screen_name); */
+    console.log(err);
+    if (data) {
+      this.setState({userData: data, loading: false});
+      localStorage.setItem('userData', data);
+      localStorage.setItem('screenName', data.screen_name);
+    }
   };
 
   sendScreenName = async(term) => {
@@ -79,8 +82,8 @@ class App extends React.Component {
               <h1><strong>Login</strong></h1>
               <TwitterLogin
                 authCallback={this.authHandler}
-                consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
-                consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
+                consumerKey='JAABlOt9wzw9dyr8SASkPjRrj'
+                consumerSecret='ki0m1aFKtdYisdalDQUOHnfOS0EI5XC1Iez1xbhx0Htox2NwrI'
                 callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
                 //callbackUrl={'http://localhost:3000'}
               >
