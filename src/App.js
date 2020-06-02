@@ -37,11 +37,12 @@ class App extends React.Component {
     let body = {
       term: term
     }
-    await fetch("/set-search-term", {
+    await fetch("https://richpanel-backend.herokuapp.com/set-search-term", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3001',
+        'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
+        //'Access-Control-Allow-Origin': 'http://localhost:3001',
         'Access-Control-Allow-Credentials': true
       },
       body: JSON.stringify(body)
