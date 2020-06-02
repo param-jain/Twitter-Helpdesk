@@ -37,7 +37,8 @@ class App extends React.Component {
     let body = {
       term: term
     }
-    await fetch("https://richpanel-backend.herokuapp.com/set-search-term", {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    await fetch(proxyurl+"https://richpanel-backend.herokuapp.com/set-search-term", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
