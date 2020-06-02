@@ -38,19 +38,17 @@ class App extends React.Component {
     let body = {
       term: term
     }
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    await fetch(proxyurl+"https://richpanel-backend.herokuapp.com/set-search-term", {
+    await fetch("http://localhost:3001/set-search-term", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
-        //'Access-Control-Allow-Origin': 'http://localhost:3001',
+        //'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
+        'Access-Control-Allow-Origin': 'http://localhost:3001',
         'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Methods': 'POST',
-        'Access-Control-Allow-Headers': 'Content-Type'  
       },
       body: JSON.stringify(body)
     })
+    .then((res) => res.json())
     .then((res) => {
       window.location.reload(true);
     })
@@ -86,12 +84,12 @@ class App extends React.Component {
               <h1><strong>Login</strong></h1>
               <TwitterLogin
                 authCallback={this.authHandler}
-                consumerKey='JAABlOt9wzw9dyr8SASkPjRrj'
-                consumerSecret='ki0m1aFKtdYisdalDQUOHnfOS0EI5XC1Iez1xbhx0Htox2NwrI'
-                callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
-                //consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
-                //consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
-                //callbackUrl={'http://localhost:3000'}
+                //consumerKey='JAABlOt9wzw9dyr8SASkPjRrj'
+                //consumerSecret='ki0m1aFKtdYisdalDQUOHnfOS0EI5XC1Iez1xbhx0Htox2NwrI'
+                //callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
+                consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
+                consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
+                callbackUrl={'http://localhost:3000'}
               >
                 <Button onClick={() => this.setState({loading: true})} size='lg' variant='light' style={{marginTop: 5, width:'15rem', height: '3rem', borderRadius: '1.5rem', alignItems: 'center', justifyContent: 'center'}}>
                   {this.renderLoader()}

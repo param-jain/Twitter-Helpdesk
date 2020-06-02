@@ -14,8 +14,8 @@ class HelpDesk extends React.Component {
   }
 
 componentDidMount() {
-  const socket = socketIOClient('https://richpanel-backend.herokuapp.com/');
-  //const socket = socketIOClient('http://localhost:3001/');
+  //const socket = socketIOClient('https://richpanel-backend.herokuapp.com/');
+  const socket = socketIOClient('http://localhost:3001/');
 
   socket.on('connect', () => {
     console.log("Socket Connected");
@@ -40,12 +40,12 @@ handleSubmit = async (event) => {
     screenName: this.state.focusedTweet.user.screen_name,
     msg: this.state.replyTweet
   }
-  await fetch("https://richpanel-backend.herokuapp.com/post-an-update", {
+  await fetch("http://localhost:3001/post-an-update", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Origin': 'http://localhost:3001',
-      'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
+      'Access-Control-Allow-Origin': 'http://localhost:3001',
+      //'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
       'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify(body)
@@ -71,12 +71,12 @@ loadTweetData = async(tweetDetail) => {
     tweetStrId: tweetDetail.id_str,
     screenName: tweetDetail.user.screen_name,
   }
-  await fetch("https://richpanel-backend.herokuapp.com/get-all-replies", {
+  await fetch("http://localhost:3001/get-all-replies", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Origin': 'http://localhost:3001',
-      'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
+      'Access-Control-Allow-Origin': 'http://localhost:3001',
+      //'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
       'Access-Control-Allow-Credentials': true
     },
     body: JSON.stringify(body)

@@ -17,7 +17,7 @@ module.exports = (app, io) => {
     let gSocket;
     let focusedReplies;
 
-    app.locals.searchTerm = 'the';
+    app.locals.searchTerm = 'amazonIN';
     app.locals.showRetweets = false;
     app.locals.focusedTweet = ''
 
@@ -125,6 +125,7 @@ module.exports = (app, io) => {
     });
 
     app.post('/set-search-term', (req, res) => {
+        console.log('SET SEARCH TERM TRIGGERED');
         let term = req.body.term;
         console.log(term);
         app.locals.searchTerm = term;
