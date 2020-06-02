@@ -23,11 +23,11 @@ class App extends React.Component {
   }
 
   authHandler = (err, data) => {
-    console.log('AUTH HANFLER')
+    console.log('AUTH HANDLER')
     console.log(data);
     console.log(err);
+    this.setState({userData: data, loading: false});
     if (data) {
-      this.setState({userData: data, loading: false});
       localStorage.setItem('userData', data);
       localStorage.setItem('screenName', data.screen_name);
       this.sendScreenName(localStorage.getItem('screenName'));
