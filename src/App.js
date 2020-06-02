@@ -30,6 +30,7 @@ class App extends React.Component {
       this.setState({userData: data, loading: false});
       localStorage.setItem('userData', data);
       localStorage.setItem('screenName', data.screen_name);
+      this.sendScreenName(localStorage.getItem('screenName'));
     }
   };
 
@@ -44,7 +45,9 @@ class App extends React.Component {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': 'https://richpanel-backend.herokuapp.com/',
         //'Access-Control-Allow-Origin': 'http://localhost:3001',
-        'Access-Control-Allow-Credentials': true
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Methods': 'POST',
+        'Access-Control-Allow-Headers': 'Content-Type'  
       },
       body: JSON.stringify(body)
     })
