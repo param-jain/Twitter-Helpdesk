@@ -82,10 +82,12 @@ class App extends React.Component {
               <h1><strong>Login</strong></h1>
               <TwitterLogin
                 authCallback={this.authHandler}
-                consumerKey='JAABlOt9wzw9dyr8SASkPjRrj'
-                consumerSecret='ki0m1aFKtdYisdalDQUOHnfOS0EI5XC1Iez1xbhx0Htox2NwrI'
-                callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
-                //callbackUrl={'http://localhost:3000'}
+                //consumerKey='JAABlOt9wzw9dyr8SASkPjRrj'
+                //consumerSecret='ki0m1aFKtdYisdalDQUOHnfOS0EI5XC1Iez1xbhx0Htox2NwrI'
+                //callbackUrl={'https://glacial-dawn-10337.herokuapp.com/'}
+                consumerKey='u5h3Mu4EVEOeatsJCdkAWb2ip'
+                consumerSecret='tnRS7uqqV94EiyJOisxG9lnMYXOL5DzdysuhSsY7p69I6HVKGE'
+                callbackUrl={'http://localhost:3000'}
               >
                 <Button onClick={() => this.setState({loading: true})} size='lg' variant='light' style={{marginTop: 5, width:'15rem', height: '3rem', borderRadius: '1.5rem', alignItems: 'center', justifyContent: 'center'}}>
                   {this.renderLoader()}

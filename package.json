@@ -34,8 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon ./src/server/server --ignore start",
-    "client": "react-scripts start",
-    "heroku-postbuild": "yarn run build"
+    "client": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
